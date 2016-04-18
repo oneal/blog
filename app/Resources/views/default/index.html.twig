@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            {% for entry in entries %}
+                <p>
+                {{ entry.getTitle }}
+                {{ entry.getContent }}
+                {{ entry.getName }}
+                {{ entry.getFecha | date }}
+                <a href="{{ path("showDetail", {'show':entry.getId,'slug':entry.getslug}) }}">Ver mas</a></p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
