@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +56,26 @@ class Entries
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="entries")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="entries")
+     */
+    private $entries;
+
+    /**
+     * Entries constructor.
+     * @param $entries
+     */
+    public function __construct($entries)
+    {
+        $this->entries = new ArrayCollection();
+    }
 
 
     /**
@@ -178,6 +199,23 @@ class Entries
     {
         $this->slug = $slug;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
 
 
 }
