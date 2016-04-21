@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
+    <div class="container">
+        <div class="row">
             {% for entry in entries %}
-                <p>
-                {{ entry.getTitle }}
-                {{ entry.getContent }}
-                {{ entry.getName }}
-                {{ entry.getFecha | date }}
-                <a href="{{ path("showDetail", {'show':entry.getId,'slug':entry.getslug}) }}">Ver mas</a></p>
+                <div class="col-lg-3 col-sm-4 col-xss-6 col-xs-12">
+                    <h3>{{ entry.getTitle }}</h3>
+                    <p><strong>Categoria: {{ entry.getCategory.getName }}</strong></p>
+                    <p><strong>{{ entry.getName }} - {{ entry.getFecha | date }}</strong></p>
+                    <p>{{ entry.getContent | slice(0, 255)}}...</p>
+                    <p>
+                        <a href="{{ path("showDetail", {'show':entry.getId,'slug':entry.getslug}) }}">Ver mas</a>
+                    </p>
+                </div>
             {% endfor %}
         </div>
     </div>

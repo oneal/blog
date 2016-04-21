@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-
+    <div class="container">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+            <h3>{{ entry.getTitle }}</h3>
+            <p><strong>Categoria: {{ entry.getCategory.getName }}</strong></p>
+            <p><strong>{{ entry.getName }}-{{ entry.getFecha | date }}</strong></p>
+            <p>{{ entry.getContent }}</p>
+        </div>
+        <div class="row">
+            {
         </div>
     </div>
 {% endblock %}

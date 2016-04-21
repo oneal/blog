@@ -26,10 +26,9 @@ class DefaultController extends Controller
      */
     public function showDetailEntryAction($show)
     {
-        $em = $this->getDoctrine()->getRepository("AppBundle:Entries")->findOneById($show);
-        var_dump($em);
+        $entry = $this->getDoctrine()->getRepository("AppBundle:Entries")->findOneById($show);
 
         // replace this example code with whatever you need
-        return $this->render('default/detailEntry.html.twig');
+        return $this->render('default/detailEntry.html.twig', array('entry' => $entry));
     }
 }
