@@ -5,8 +5,8 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Library</a></li>
-                <li class="active">Data</li>
+                <li><a href="#">{{ entry.getCategory.getName }}</a></li>
+                <li class="active">{{ entry.getTitle }}</li>
             </ol>
             <h3>{{ entry.getTitle }}</h3>
             <p><strong>Categoria: {{ entry.getCategory.getName }}</strong></p>
@@ -14,7 +14,12 @@
             <p>{{ entry.getContent }}</p>
         </div>
         <div class="row">
-            {
+            <h3>Comentarios</h3>
+            {% for comentario in comments %}
+                <p><strong>{{ comentario.getSubjet }}</strong></p>
+                <p>{{ comentario.getName }} - {{ comentario.getFecha | date }}</p>
+                <p>{{ comentario.getContent }}</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

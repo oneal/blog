@@ -5,7 +5,12 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            {% for entry in entries %}
+            <ol class="breadcrumb">
+                <li><a href="{{ path("homepage") }}">Home</a></li>
+                <li class="active">{{ entry.getCategory.getName }}</li>
+            </ol>
+            <h3>{{ entry.getCategory.getName }}</h3>
+            {% for entry in entriesCategories %}
                 <div class="col-lg-3 col-sm-4 col-xss-6 col-xs-12">
                     <h3>{{ entry.getTitle }}</h3>
                     <p><strong>Categoria: {{ entry.getCategory.getName }}</strong></p>
@@ -18,7 +23,4 @@
             {% endfor %}
         </div>
     </div>
-{% endblock %}
-
-{% block stylesheets %}
 {% endblock %}
