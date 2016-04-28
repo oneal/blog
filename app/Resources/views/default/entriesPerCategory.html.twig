@@ -1,16 +1,13 @@
-{% extends 'base.html.twig' %}
-{% block header %}
-    {{  include('_header.html.twig', {'categories': categories}) }}
-{% endblock %}
+{% extends '::base.html.twig' %}
+
 {% block body %}
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="{{ path("homepage") }}">Home</a></li>
-                <li class="active">{{ entry.getCategory.getName }}</li>
+                <li><a href="#">Home</a></li>
+                <li>{{ category }}</li>
             </ol>
-            <h3>{{ entry.getCategory.getName }}</h3>
-            {% for entry in entriesCategories %}
+            {% for entry in entries %}
                 <div class="col-lg-3 col-sm-4 col-xss-6 col-xs-12">
                     <h3>{{ entry.getTitle }}</h3>
                     <p><strong>Categoria: {{ entry.getCategory.getName }}</strong></p>
@@ -23,4 +20,7 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
 {% endblock %}

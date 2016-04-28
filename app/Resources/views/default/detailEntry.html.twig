@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block body %}
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">{{ entry.getCategory.getName }}</a></li>
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li><a href="{{ path("entriesCategory", {'id':entry.getCategory.getId, 'category':entry.getCategory.getName}) }}">{{ entry.getCategory.getName }}</a></li>
                 <li class="active">{{ entry.getTitle }}</li>
             </ol>
             <h3>{{ entry.getTitle }}</h3>

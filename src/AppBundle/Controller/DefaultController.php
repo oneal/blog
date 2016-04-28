@@ -29,23 +29,34 @@ class DefaultController extends Controller
     public function showDetailEntryAction($show)
     {
         $entry = $this->getDoctrine()->getRepository("AppBundle:Entries")->findOneById($show);
+        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
         $comments = $this->getDoctrine()->getRepository("AppBundle:Comments")->findBy(array("entry" => $show));
 
         // replace this example code with whatever you need
-        return $this->render('default/detailEntry.html.twig', array('entry' => $entry, 'comments' => $comments));
+        return $this->render('default/detailEntry.html.twig',
+            array(
+                'entry' => $entry,
+                'comments' => $comments,
+                'categories' => $categories
+            ));
     }
 
     /**
-     * @Route("/blog/{id}/{category}", name="entriesCategory")
+     * @Route("/blog/category/{id}/{category}", name="entriesCategory")
      */
-    public function EntriesCategoryAction($id)
+    public function EntriesCategoryAction($id,$category)
     {
-        $entriesCategory = $this->getDoctrine()->getRepository("AppBundle:Entries")->findBy(array('category' => $id));
-
-        var_dump($entriesCategory);
-        die();
+        $entries = $this->getDoctrine()->getRepository("AppBundle:Entries")->findBy(array('category' => $id));
+        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
 
         // replace this example code with whatever you need
-        return $this->render('default/entriesCategories.html.twig', array('entriesCategories' => $entriesCategory,));
+        return $this->render('default/entriesPerCategory.html.twig',
+            array(
+                'entries' => $entries,
+                'categories' => $categories,
+                'category' => $category
+            ));
     }
+
+
 }
