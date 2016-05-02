@@ -1,0 +1,6 @@
+AppBundle\Entity\User:
+  properties:
+    username:
+      -NotBlank: {message: "Debe introducir un usuario"}
+    plainPassword:
+      -NotBlank: {message: "Debe introducir una contraseña"}
