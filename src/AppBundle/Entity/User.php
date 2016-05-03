@@ -23,21 +23,18 @@ class User
 
     /**
      * @var string
-     * @Assert\NotBlank()
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      * @ORM\Column(name="plainPassword", type="string", length=255)
      */
     private $plainPassword;
