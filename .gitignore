@@ -1,4 +1,5 @@
 app/config/parameters.yml
 .idea
 var
+web/styles/*
 web/bundles/*
