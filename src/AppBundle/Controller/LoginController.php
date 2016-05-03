@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
+use AppBundle\Entity\Form\Login;
+use AppBundle\Form\LoginType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
@@ -14,16 +14,16 @@ class LoginController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction(Request $request)
+    public function accessAction(Request $request)
     {
-        $model = new User();
-        $form = $this->createForm(UserType::class, $model);
+        $user = new Login();
+        $form = $this->createForm(LoginType::class, $user);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted())
+        if($form->isValid())
         {
-            $this->redirect($this->generateUrl("logged"));
+            die();
         }
 
         return $this->render("login/login.html.twig", array(
