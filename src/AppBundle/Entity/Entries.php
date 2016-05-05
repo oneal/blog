@@ -72,7 +72,7 @@ class Entries
      * Entries constructor.
      * @param $entries
      */
-    public function __construct()
+    public function __construct($entries)
     {
         $this->entries = new ArrayCollection();
     }
