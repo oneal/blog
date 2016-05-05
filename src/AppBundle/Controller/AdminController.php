@@ -31,7 +31,6 @@ class AdminController extends Controller
         $entries = new Entries();
         $em = $this->getDoctrine()->getRepository('AppBundle:Category');
         $categories = $em->findAll();
-        $categories->
         $entriesType = new EntriesType($categories);
         $form = $this->createForm(EntriesType::class, $entries);
 
