@@ -3,7 +3,8 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Category;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,13 +16,6 @@ class EntriesType extends AbstractType
 {
     private $categories;
 
-    /**
-     * EntriesType constructor.
-     * @param $categories
-     */
-    public function __construct(Array $allCategories){
-        $this->categories = $allCategories;
-    }
 
 
     /**
@@ -34,10 +28,13 @@ class EntriesType extends AbstractType
             ->add('title', TextType::class)
             ->add('content', TextType::class)
             ->add('name', TextType::class )
-            ->add('fecha', 'date')
+            ->add('fecha', DateType::class)
             ->add('slug', TextType::class)
-            ->add('category', ChoiceType::class, Array(
-                'choices' => $this->categories
+            ->add('category', EntityType::class, array(
+                'class' => 'AppBundle:Category',
+                'choice_label' => function($category){
+                    return $category->getName();
+                },
             ))
             ->add('guardar', SubmitType::class)
         ;

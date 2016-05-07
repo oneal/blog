@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Entries
@@ -26,6 +27,7 @@ class Entries
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -33,6 +35,7 @@ class Entries
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -40,6 +43,7 @@ class Entries
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -47,6 +51,7 @@ class Entries
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="date")
+     * @Assert\NotBlank()
      */
     private $fecha;
 
@@ -54,12 +59,14 @@ class Entries
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="entries")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $category;
 
