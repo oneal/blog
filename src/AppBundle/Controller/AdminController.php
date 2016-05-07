@@ -24,6 +24,36 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/entries", name="adminEntries")
+     */
+    public function viewEntriesAction(Request $request)
+    {
+        $this->redirectToLogin($request);
+
+        $em = $this->getDoctrine()->getRepository("AppBundle:Entries");
+        $entries = $em->findAll();
+
+        // replace this example code with whatever you need
+        return $this->render(':admin:entries.html.twig', array('entries' => $entries));
+    }
+
+
+
+    /**
+     * @Route("/admin/categories", name="adminCategories")
+     */
+    public function viewCategoriesAction(Request $request)
+    {
+        $this->redirectToLogin($request);
+
+        $em = $this->getDoctrine()->getRepository("AppBundle:Category");
+        $categories = $em->findAll();
+
+        // replace this example code with whatever you need
+        return $this->render(':admin:categories.html.twig', array('categories' => $categories));
+    }
+
+    /**
      * @Route("/admin/create/entries", name="createEntries")
      */
     public function createEntiesAction(Request $request)
