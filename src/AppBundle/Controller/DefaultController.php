@@ -16,12 +16,10 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $entries = $this->getDoctrine()->getRepository("AppBundle:Entries")->findAll();
-        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'entries' => $entries,
-            'categories' => $categories
         ]);
     }
 
@@ -31,7 +29,6 @@ class DefaultController extends Controller
     public function showDetailEntryAction($show)
     {
         $entry = $this->getDoctrine()->getRepository("AppBundle:Entries")->findOneById($show);
-        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
         $comments = $this->getDoctrine()->getRepository("AppBundle:Comments")->findBy(array("entry" => $show));
 
         // replace this example code with whatever you need
@@ -39,7 +36,6 @@ class DefaultController extends Controller
             array(
                 'entry' => $entry,
                 'comments' => $comments,
-                'categories' => $categories
             ));
     }
 
@@ -49,13 +45,11 @@ class DefaultController extends Controller
     public function entriesCategoryAction($id,$category)
     {
         $entries = $this->getDoctrine()->getRepository("AppBundle:Entries")->findBy(array('category' => $id));
-        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
 
         // replace this example code with whatever you need
         return $this->render('default/entriesPerCategory.html.twig',
             array(
                 'entries' => $entries,
-                'categories' => $categories,
                 'category' => $category
             ));
     }
@@ -65,7 +59,6 @@ class DefaultController extends Controller
      */
     public function contactAction(Request $request)
     {
-        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
 
@@ -76,10 +69,19 @@ class DefaultController extends Controller
         }
 
         return $this->render(':default:contact.html.twig', array(
-            'form' => $form->createView(),
-            'categories' => $categories,
+            'form' => $form->createView()
         ));
 
+    }
+
+    public function categoriesAction()
+    {
+        $categories = $this->getDoctrine()->getRepository("AppBundle:Category")->findAll();
+
+        return $this->render('::_header.html.twig', array(
+                'categories' => $categories
+            )
+        );
     }
 
 

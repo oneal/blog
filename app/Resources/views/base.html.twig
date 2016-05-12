@@ -11,7 +11,7 @@
     </head>
     <body>
         {% block header %}
-            {{  include('_header.html.twig', {'categories': categories}) }}
+            {{ render(controller('AppBundle:Default:categories')) }}
         {% endblock %}
         {% block body %}{% endblock %}
         {% include "_footer.html.twig" %}
