@@ -17,7 +17,9 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $this->redirectToLogin($request);
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
 
         // replace this example code with whatever you need
         return $this->render(':admin:index.html.twig');
@@ -28,7 +30,9 @@ class AdminController extends Controller
      */
     public function viewEntriesAction(Request $request)
     {
-        $this->redirectToLogin($request);
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine()->getRepository("AppBundle:Entries");
         $entries = $em->findAll();
@@ -44,7 +48,9 @@ class AdminController extends Controller
      */
     public function viewCategoriesAction(Request $request)
     {
-        $this->redirectToLogin($request);
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine()->getRepository("AppBundle:Category");
         $categories = $em->findAll();
@@ -58,7 +64,9 @@ class AdminController extends Controller
      */
     public function createEntiesAction(Request $request)
     {
-        $this->redirectToLogin($request);
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
 
         $entries = new Entries();
         $form = $this->createForm(EntriesType::class,$entries);
@@ -104,8 +112,9 @@ class AdminController extends Controller
     private function redirectToLogin(Request $request){
         $session = $request->getSession();
 
-        if(!$session->isStarted()){
-            return $this->redirect($this->generateUrl('login'));
+        if($session->get('username') == null){
+            return true;
         }
+        return null;
     }
 }
