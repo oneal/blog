@@ -1,2 +1,17 @@
-{{ form_start(form, {'action':'', 'method':'POST'}) }}
-{{ form_end(form) }}
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <h2>Crear categoría</h2>
+        {{ form_start(form, {'action':'', 'method':'POST'}) }}
+            <div class="form-group">
+                {{ form_errors(form.name) }}
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.save) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
