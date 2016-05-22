@@ -1,1 +1,20 @@
-{{ dump(entries) }}
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-6 col-sm-6 col-xss-12 col-xs-12">
+        <p class="menu_create">
+            <a href="{{ path('createEntries') }}">Crear Entrada</a>
+        </p>
+    </div>
+    {% for entry in entries %}
+        <div class="col-lg-3 col-sm-4 col-xss-6 col-xs-12">
+            <h3>{{ entry.getTitle }}</h3>
+            <p><strong>Categoria: {{ entry.getCategory.getName }}</strong></p>
+            <p><strong>{{ entry.getName }} - {{ entry.getFecha | date }}</strong></p>
+            <p>{{ entry.getContent | slice(0, 255)}}...</p>
+            <p>
+                <a href="{{ path("showDetail", {'show':entry.getId,'slug':entry.getslug}) }}">Ver mas</a>
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
