@@ -5,15 +5,3 @@
     </div>
     {{ knp_menu_render('AppBundle:MenuBuilder:mainMenu') }}
 </nav>
-{#
-<nav class="navbar navbar-inverse">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#">CATEGORIES</a>
-    </div>
-
-    <ul class="nav navbar-nav">
-        {% for category in categories %}
-            <li><a href="{{ path("entriesCategory", {'id':category.getId,'category':category.getName}) }}">{{ category.getName }}</a></li>
-        {% endfor %}
-    </ul>
-</nav>#}

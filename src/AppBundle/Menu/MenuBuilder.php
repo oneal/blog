@@ -40,4 +40,20 @@ class MenuBuilder implements  ContainerAwareInterface {
 
         return $menu;
     }
+
+    public function mainMenuAdmin(FactoryInterface $factory, array $options){
+
+        $menu = $factory->createItem("root");
+        $menu->setChildrenAttributes(array('class' => 'nav nav-pills nav-stacked'));
+
+
+        $menu->addChild('Home', array('route' => 'adminHompage'));
+        $menu->addChild('Entradas', array('route' => 'adminEntries'));
+        $menu->addChild('Categorias', array('route' => 'adminCategories'));
+        /*$menu->addChild('Comentarios', array('comentarios' => ''));*/
+
+        return $menu;
+
+
+    }
 }
