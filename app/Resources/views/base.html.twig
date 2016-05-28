@@ -11,7 +11,7 @@
     </head>
     <body>
         {% block header %}
-            {{ render(controller('AppBundle:Default:categories')) }}
+            {% include '_header.html.twig' %}
         {% endblock %}
         {% block adminMenu %}{% endblock %}
         {% block body %}{% endblock %}

@@ -59,6 +59,13 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+#knpMenu
+knp_menu:
+    twig:
+        template: knp_menu.html.twig
+    templating: false
+    default_renderer: twig
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
