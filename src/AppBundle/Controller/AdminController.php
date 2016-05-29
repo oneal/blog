@@ -80,8 +80,9 @@ class AdminController extends Controller
         }
 
         // replace this example code with whatever you need
-        return $this->render(':admin:create_entries.html.twig', array(
-            'form' => $form->createView()
+        return $this->render(':admin:form_entries.html.twig', array(
+            'form' => $form->createView(),
+            'action' => "Crear Entradas"
         ));
     }
 
@@ -106,13 +107,14 @@ class AdminController extends Controller
         }
 
         // replace this example code with whatever you need
-        return $this->render(':admin:create_categories.html.twig', array(
-            'form' => $form->createView()
+        return $this->render(':admin:form_categories.html.twig', array(
+            'form' => $form->createView(),
+            'action' => 'Crear Categorias'
         ));
     }
 
     /**
-     * @Route("/admin/edit", name="adminEditEntry")
+     * @Route("/admin/edit/entry", name="adminEditEntry")
      */
     public function editEntryAdmin(Request $request)
     {
@@ -137,14 +139,15 @@ class AdminController extends Controller
             $em->flush();
         }
 
-        return $this->render(':admin:edit_entries.html.twig', array(
-            'form' => $form->createView()
+        return $this->render(':admin:form_entries.html.twig', array(
+            'form' => $form->createView(),
+            'action' => 'Editar Entrada'
         ));
 
     }
 
     /**
-     * @Route("/admin/delete", name="adminDelEntry")
+     * @Route("/admin/delete/entry", name="adminDelEntry")
      */
     public function adminDelEntry(Request $request)
     {
@@ -168,6 +171,66 @@ class AdminController extends Controller
 
 
         return $this->render(':admin:entries.html.twig', array('entries' => $entries));
+    }
+
+    /**
+     * @Route("/admin/edit/category", name="adminEditCategory")
+     */
+    public function editCategoryAdmin(Request $request)
+    {
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
+
+        $id = $request->query->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository("AppBundle:Category")->findBy(array('id' => $id));
+
+        $cat = new Category();
+        $cat = $category[0];
+
+        $form = $this->createForm(CategoryType::class, $cat);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $category = $form->getData();
+            $em->flush();
+        }
+
+        return $this->render(':admin:form_categories.html.twig', array(
+            'form' => $form->createView(),
+            'action' => 'Editar Categoría'
+        ));
+
+    }
+
+    /**
+     * @Route("/admin/delete/category", name="adminDelCategory")
+     */
+    public function adminDelCategory(Request $request)
+    {
+        if($this->redirectToLogin($request))
+        {
+            return $this->redirectToRoute("login");
+        }
+
+        $id = $request->query->get('id');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository("AppBundle:Category");
+        $category = $repository->findBy(array('id' => $id));
+
+        $em->remove($category[0]);
+        $em->flush();
+
+        $categories = $repository->findAll();
+
+
+
+        return $this->render(':admin:categories.html.twig', array('categories' => $categories));
     }
 
     private function redirectToLogin(Request $request)

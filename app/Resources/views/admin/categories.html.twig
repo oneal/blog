@@ -1,1 +1,23 @@
-{{ dump(categories) }}
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-6 col-sm-6 col-xss-12 col-xs-12">
+        <p class="menu_create">
+            <a href="{{ path('createCategories') }}">Crear Categoria</a>
+        </p>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <h2>Categorias</h2>
+        <ul class="list-group">
+        {% for category in categories %}
+           <li class="list-group-item">
+               {{ category.getName }}
+               <p>
+                   <a href="{{ path("adminEditCategory", {'id':category.getId}) }}">Editar</a>
+                   <a href="{{ path("adminDelCategory", {'id':category.getId}) }}">Borrar</a>
+               </p>
+           </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 {% block body %}
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <h2>Crear entrada</h2>
+            {% include ':admin:_section_header.html.twig' with {'action':action} %}
             {{ form_start(form, {'action':'', 'method':'POST'}) }}
                 <div class="form-group">
                     {{ form_errors(form.title) }}
