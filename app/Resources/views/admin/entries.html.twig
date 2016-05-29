@@ -5,7 +5,9 @@
         <p class="menu_create">
             <a href="{{ path('createEntries') }}">Crear Entrada</a>
         </p>
+        <h2>Entradas</h2>
     </div>
+
     {% for entry in entries %}
         <div class="col-lg-3 col-sm-4 col-xss-6 col-xs-12">
             <h3>{{ entry.getTitle }}</h3>
