@@ -90,7 +90,9 @@ class AdminController extends Controller
      */
     public function createCategoriesAction(Request $request)
     {
-        $this->redirectToLogin($request);
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
 
         $category = new Category();
         $form = $this->createForm(CategoryType::class,$category);
@@ -109,7 +111,67 @@ class AdminController extends Controller
         ));
     }
 
-    private function redirectToLogin(Request $request){
+    /**
+     * @Route("/admin/edit", name="adminEditEntry")
+     */
+    public function editEntryAdmin(Request $request)
+    {
+        if($this->redirectToLogin($request)){
+            return $this->redirectToRoute('login');
+        }
+
+        $id = $request->query->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+        $entry = $em->getRepository("AppBundle:Entries")->findBy(array('id' => $id));
+
+        $entries = new Entries();
+        $entries = $entry[0];
+
+        $form = $this->createForm(EntriesType::class,$entries);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $entry = $form->getData();
+            $em->flush();
+        }
+
+        return $this->render(':admin:edit_entries.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+    }
+
+    /**
+     * @Route("/admin/delete", name="adminDelEntry")
+     */
+    public function adminDelEntry(Request $request)
+    {
+        if($this->redirectToLogin($request))
+        {
+            return $this->redirectToRoute("login");
+        }
+
+        $id = $request->query->get('id');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository("AppBundle:Entries");
+        $entry = $repository->findBy(array('id' => $id));
+
+        $em->remove($entry[0]);
+        $em->flush();
+
+        $entries = $repository->findAll();
+
+
+
+        return $this->render(':admin:entries.html.twig', array('entries' => $entries));
+    }
+
+    private function redirectToLogin(Request $request)
+    {
         $session = $request->getSession();
 
         if($session->get('username') == null){

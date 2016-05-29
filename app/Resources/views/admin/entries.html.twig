@@ -13,7 +13,8 @@
             <p><strong>{{ entry.getName }} - {{ entry.getFecha | date }}</strong></p>
             <p>{{ entry.getContent | slice(0, 255)}}...</p>
             <p>
-                <a href="{{ path("showDetail", {'show':entry.getId,'slug':entry.getslug}) }}">Ver mas</a>
+                <a href="{{ path("adminEditEntry", {'id':entry.getId}) }}">Editar</a>
+                <a href="{{ path("adminDelEntry", {'id':entry.getId}) }}">Borrar</a>
             </p>
         </div>
     {% endfor %}
