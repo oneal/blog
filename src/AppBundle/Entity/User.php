@@ -3,14 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -42,6 +42,9 @@ class User
      */
     private $password;
 
+    //AUTH
+
+    //END AUTH
 
     /**
      * Get id
@@ -123,6 +126,29 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+
+    public function getRoles()
+    {
+        return array('roles_user');
+    }
+
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+
+    public function getUsername()
+    {
+        return $this->getName();
+    }
+
+
+    public function eraseCredentials()
+    {
     }
 }
 

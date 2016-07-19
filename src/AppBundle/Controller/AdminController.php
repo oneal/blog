@@ -15,8 +15,9 @@ class AdminController extends Controller
     /**
      * @Route("/admin", name="adminHompage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
+        die(dump($request->getSession()->get('username')));
         if($this->redirectToLogin($request)){
             return $this->redirectToRoute('login');
         }

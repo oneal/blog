@@ -4,17 +4,40 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Form\Login;
 use AppBundle\Form\LoginType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class LoginController extends Controller
+class UserController extends Controller
 {
     /**
      * @Route("/login", name="login")
      */
-    public function accessAction(Request $request)
+    public function loginAction(Request $request){
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        $session = $request->getSession();
+        $session->set('username',$lastUsername);
+
+        return $this->render('login/login.html.twig', array(
+           'last_username' => $lastUsername,
+            'error' => $error
+        ));
+    }
+
+    /**
+     * @Route("/login_check", name="login_check")
+     */
+    public function loginCheckAction(Request $request){
+        return $this->generateUrl("adminHompage");
+    }
+
+    /*public function accessAction(Request $request)
     {
         $user = new Login();
         $form = $this->createForm(LoginType::class, $user);
@@ -40,13 +63,7 @@ class LoginController extends Controller
             'form' => $form->createView(),
         ));
 
-    }
+    }*/
 
-    /**
-     * @Route("/logged", name="logged")
-     */
-    public function validUserAction(Request $request)
-    {
-        return new Response("hola");
-    }
+
 }
